@@ -1,2 +1,324 @@
-# Smart-Meeting-Notes
-สำหรับบันทึการประชุมและกิจกรรม
+export default function MeetingNotesDashboard() {
+  const notes = [
+    {
+      id: 'MT-001',
+      title: 'ประชุมวางแผน Production',
+      category: 'Meeting',
+      owner: 'PIN',
+      status: 'Open',
+      date: '2026-05-15',
+    },
+    {
+      id: 'AC-002',
+      title: 'ตรวจสอบ NG Process',
+      category: 'Activity',
+      owner: 'QA Team',
+      status: 'Done',
+      date: '2026-05-14',
+    },
+    {
+      id: 'MT-003',
+      title: 'ประชุมลูกค้า',
+      category: 'Meeting',
+      owner: 'Sales',
+      status: 'Pending',
+      date: '2026-05-12',
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-200 text-slate-800">
+      {/* Top Header */}
+      <div className="sticky top-0 z-50 backdrop-blur bg-white/80 border-b border-slate-200 shadow-sm">
+        <div className="flex items-center justify-between px-6 py-4">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">
+              Smart Meeting Notes
+            </h1>
+            <p className="text-sm text-slate-500 mt-1">
+              ระบบบันทึกโน๊ตประชุม / กิจกรรม พร้อมค้นหาย้อนหลัง
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button className="px-4 py-2 rounded-2xl bg-slate-200 hover:bg-slate-300 transition font-medium">
+              Export Excel
+            </button>
+            <button className="px-5 py-2 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition font-semibold">
+              + เพิ่มโน๊ตใหม่
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Layout */}
+      <div className="grid grid-cols-12 gap-5 p-5">
+        {/* Sidebar */}
+        <div className="col-span-12 lg:col-span-2">
+          <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-5 h-full">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold mb-3">เมนูหลัก</h2>
+
+              <div className="space-y-2">
+                <button className="w-full text-left px-4 py-3 rounded-2xl bg-blue-600 text-white font-semibold shadow-md">
+                  Dashboard
+                </button>
+
+                <button className="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 transition">
+                  Meeting Notes
+                </button>
+
+                <button className="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 transition">
+                  Activities
+                </button>
+
+                <button className="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 transition">
+                  Archive
+                </button>
+
+                <button className="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 transition">
+                  Reports
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-3">หมวดหมู่</h3>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm">
+                  Meeting
+                </span>
+                <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm">
+                  Activity
+                </span>
+                <span className="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm">
+                  Follow Up
+                </span>
+                <span className="px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-sm">
+                  Audit
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="col-span-12 lg:col-span-10 space-y-5">
+          {/* Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+            <div className="bg-white rounded-3xl p-5 shadow-lg border border-slate-200">
+              <p className="text-slate-500 text-sm">โน๊ตทั้งหมด</p>
+              <h2 className="text-3xl font-bold mt-2">128</h2>
+            </div>
+
+            <div className="bg-white rounded-3xl p-5 shadow-lg border border-slate-200">
+              <p className="text-slate-500 text-sm">Meeting</p>
+              <h2 className="text-3xl font-bold mt-2">52</h2>
+            </div>
+
+            <div className="bg-white rounded-3xl p-5 shadow-lg border border-slate-200">
+              <p className="text-slate-500 text-sm">กิจกรรม</p>
+              <h2 className="text-3xl font-bold mt-2">41</h2>
+            </div>
+
+            <div className="bg-white rounded-3xl p-5 shadow-lg border border-slate-200">
+              <p className="text-slate-500 text-sm">ติดตามงาน</p>
+              <h2 className="text-3xl font-bold mt-2">35</h2>
+            </div>
+          </div>
+
+          {/* Toolbar */}
+          <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-4">
+            <div className="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
+              <div className="flex flex-wrap gap-3">
+                <input
+                  type="text"
+                  placeholder="ค้นหา Meeting, Keyword, ผู้รับผิดชอบ..."
+                  className="px-4 py-3 rounded-2xl border border-slate-300 w-[320px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <select className="px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+                  <option>ทุกประเภท</option>
+                  <option>Meeting</option>
+                  <option>Activity</option>
+                </select>
+
+                <select className="px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+                  <option>ทุกสถานะ</option>
+                  <option>Open</option>
+                  <option>Pending</option>
+                  <option>Done</option>
+                </select>
+              </div>
+
+              <div className="flex gap-3">
+                <button className="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 transition">
+                  Refresh
+                </button>
+
+                <button className="px-4 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-lg">
+                  Advanced Filter
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Excel Style Table */}
+          <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+            <div className="overflow-auto">
+              <table className="w-full min-w-[1100px] border-collapse">
+                <thead>
+                  <tr className="bg-slate-100 text-slate-700 text-sm">
+                    <th className="border border-slate-200 px-4 py-3 text-left">
+                      Select
+                    </th>
+                    <th className="border border-slate-200 px-4 py-3 text-left">
+                      ID
+                    </th>
+                    <th className="border border-slate-200 px-4 py-3 text-left">
+                      Title
+                    </th>
+                    <th className="border border-slate-200 px-4 py-3 text-left">
+                      Category
+                    </th>
+                    <th className="border border-slate-200 px-4 py-3 text-left">
+                      Owner
+                    </th>
+                    <th className="border border-slate-200 px-4 py-3 text-left">
+                      Status
+                    </th>
+                    <th className="border border-slate-200 px-4 py-3 text-left">
+                      Date
+                    </th>
+                    <th className="border border-slate-200 px-4 py-3 text-center">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {notes.map((item, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-blue-50 transition text-sm"
+                    >
+                      <td className="border border-slate-200 px-4 py-3">
+                        <input type="checkbox" />
+                      </td>
+
+                      <td className="border border-slate-200 px-4 py-3 font-semibold text-blue-600">
+                        {item.id}
+                      </td>
+
+                      <td className="border border-slate-200 px-4 py-3">
+                        {item.title}
+                      </td>
+
+                      <td className="border border-slate-200 px-4 py-3">
+                        <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs">
+                          {item.category}
+                        </span>
+                      </td>
+
+                      <td className="border border-slate-200 px-4 py-3">
+                        {item.owner}
+                      </td>
+
+                      <td className="border border-slate-200 px-4 py-3">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            item.status === 'Done'
+                              ? 'bg-emerald-100 text-emerald-700'
+                              : item.status === 'Pending'
+                              ? 'bg-orange-100 text-orange-700'
+                              : 'bg-blue-100 text-blue-700'
+                          }`}
+                        >
+                          {item.status}
+                        </span>
+                      </td>
+
+                      <td className="border border-slate-200 px-4 py-3">
+                        {item.date}
+                      </td>
+
+                      <td className="border border-slate-200 px-4 py-3 text-center">
+                        <div className="flex justify-center gap-2">
+                          <button className="px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs">
+                            View
+                          </button>
+
+                          <button className="px-3 py-1 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs">
+                            Edit
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Bottom Panel */}
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+            <div className="xl:col-span-2 bg-white rounded-3xl shadow-xl border border-slate-200 p-5">
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-xl font-bold">รายละเอียดโน๊ต</h2>
+
+                <button className="px-4 py-2 rounded-2xl bg-blue-600 text-white hover:bg-blue-700 transition">
+                  Edit Note
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  value="ประชุมวางแผน Production"
+                  className="w-full px-4 py-3 rounded-2xl border border-slate-300"
+                  readOnly
+                />
+
+                <textarea
+                  rows={10}
+                  className="w-full px-4 py-4 rounded-2xl border border-slate-300 resize-none"
+                  defaultValue={`- สรุปประชุมไลน์ผลิต\n- ตรวจสอบปัญหา NG\n- Follow up Action Plan\n- เตรียม Audit ลูกค้า`}
+                />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-5">
+              <h2 className="text-xl font-bold mb-5">Quick Action</h2>
+
+              <div className="space-y-3">
+                <button className="w-full px-4 py-3 rounded-2xl bg-blue-600 text-white hover:bg-blue-700 transition font-semibold shadow-lg">
+                  + New Meeting
+                </button>
+
+                <button className="w-full px-4 py-3 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-700 transition font-semibold shadow-lg">
+                  + Add Activity
+                </button>
+
+                <button className="w-full px-4 py-3 rounded-2xl bg-orange-500 text-white hover:bg-orange-600 transition font-semibold shadow-lg">
+                  Export PDF
+                </button>
+
+                <button className="w-full px-4 py-3 rounded-2xl bg-slate-800 text-white hover:bg-black transition font-semibold shadow-lg">
+                  Backup Data
+                </button>
+              </div>
+
+              <div className="mt-6 p-4 rounded-2xl bg-slate-100 border border-slate-200">
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  ระบบนี้ออกแบบให้ใช้งานคล้าย Excel + ERP Dashboard
+                  รองรับการค้นหาโน๊ตย้อนหลัง, ติดตาม Action,
+                  และ Export ข้อมูลได้ง่าย
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
